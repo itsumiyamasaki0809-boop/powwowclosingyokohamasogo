@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>POWWOW そごう横浜店 - ご提案</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <style>
   :root{
     --pink:#e893a8;
@@ -139,49 +140,61 @@
   .perk-box li:before{content:"✓";position:absolute;left:0;color:var(--pink-dark);font-weight:700;}
   .perk-note{font-size:11.5px;color:var(--text-light);margin:10px 0 0;line-height:1.6;}
 
-  .plan-card{
+  .plan-acc{
     border:2px solid var(--line);border-radius:16px;
-    padding:20px;margin-bottom:20px;position:relative;overflow:hidden;
+    margin-bottom:16px;margin-top:20px;position:relative;overflow:hidden;background:#fff;
   }
-  .plan-card.featured{border-color:var(--pink);box-shadow:var(--shadow);}
-  .plan-card .ribbon{
-    position:absolute;top:14px;right:-32px;
-    background:var(--pink-dark);color:#fff;font-size:11px;
-    padding:4px 36px;transform:rotate(35deg);
+  .plan-acc.featured{border-color:var(--pink);box-shadow:var(--shadow);}
+  .plan-acc .ribbon-flag{
+    position:absolute;top:-1px;left:50%;transform:translateX(-50%);
+    background:var(--gold);color:#fff;font-size:11px;font-weight:700;
+    padding:4px 16px;border-radius:0 0 10px 10px;white-space:nowrap;letter-spacing:.5px;
   }
-  .plan-card h3{font-size:17px;margin:0 0 2px;}
-  .plan-card .desc{font-size:12.5px;color:var(--text-light);margin-bottom:14px;}
-  .plan-card .price-tag{
+  .plan-acc-btn{
+    width:100%;background:none;border:none;cursor:pointer;font:inherit;color:inherit;
+    display:flex;align-items:center;justify-content:space-between;gap:10px;
+    padding:18px 18px 16px;text-align:left;
+  }
+  .plan-acc.featured .plan-acc-btn{padding-top:24px;}
+  .plan-acc-btn .ttl{font-size:16px;font-weight:700;}
+  .plan-acc-btn .sub{display:block;font-size:12px;font-weight:400;color:var(--text-light);margin-top:2px;}
+  .plan-acc-btn .chevron{
+    flex-shrink:0;color:var(--pink-dark);font-size:13px;
+    transition:transform .3s ease;
+  }
+  .plan-acc-btn.open .chevron{transform:rotate(180deg);}
+  .plan-acc-body{max-height:0;overflow:hidden;transition:max-height .4s ease;}
+  .plan-acc-body.open{max-height:600px;}
+  .plan-acc-inner{
+    padding:16px 20px 22px;border-top:1px dashed var(--line);text-align:center;
+  }
+  .plan-acc-inner .price-tag{
     font-size:11.5px;color:var(--pink-dark);background:var(--pink-pale);
     display:inline-block;padding:2px 10px;border-radius:10px;margin-bottom:10px;
   }
-  .plan-card .list-price{
+  .plan-acc-inner .list-price{
     font-size:12.5px;color:var(--text-light);text-decoration:line-through;
   }
-  .plan-card .main-price{
-    font-size:34px;font-weight:700;color:var(--pink-dark);
+  .plan-acc-inner .main-price{
+    font-size:32px;font-weight:700;color:var(--pink-dark);
   }
-  .plan-card .main-price .unit{font-size:14px;font-weight:500;color:var(--text);}
-  .plan-card .save{
+  .plan-acc-inner .main-price .unit{font-size:14px;font-weight:500;color:var(--text);}
+  .plan-acc-inner .save{
     font-size:12.5px;color:#c0553a;margin-bottom:14px;
   }
-  .plan-card .monthly-line{
+  .plan-acc-inner .monthly-line{
     font-size:12.5px;color:var(--text-light);
     border-top:1px dashed var(--line);padding-top:12px;margin-bottom:16px;
   }
-  .plan-card .monthly-line b{color:var(--text);font-weight:600;}
-  .cta-btn{
-    display:block;text-align:center;text-decoration:none;
-    background:var(--pink-dark);color:#fff;
-    padding:14px;border-radius:30px;font-size:14.5px;font-weight:700;
-    box-shadow:0 6px 16px rgba(212,107,133,0.3);
+  .plan-acc-inner .monthly-line b{color:var(--text);font-weight:600;}
+  .qr-cta{font-size:11px;font-weight:700;color:var(--pink-dark);margin-bottom:8px;}
+  .qr-box{
+    display:inline-block;background:#fff;padding:8px;border:2px solid var(--pink);
+    border-radius:12px;line-height:0;
   }
-  .cta-btn:active{transform:scale(0.98);}
-  .plan-card .gift{
+  .qr-box img{width:120px;height:120px;display:block;}
+  .plan-acc-inner .gift{
     font-size:12px;color:var(--gold);margin-top:10px;text-align:center;
-  }
-  .popular-flag{
-    text-align:center;font-size:12px;color:var(--pink-dark);font-weight:700;margin-bottom:-4px;
   }
 
   .guarantee-note{
@@ -340,53 +353,73 @@
     </p>
 
     <!-- ライトプラン -->
-    <div class="plan-card">
-      <h3>ライトプラン</h3>
-      <div class="desc">50分整体 ・ 時短ケアに</div>
-      <div class="price-tag">本日ご契約価格</div>
-      <div class="list-price">定価 9,500円/1回</div>
-      <div class="main-price">8,075<span class="unit">円 / 1回</span></div>
-      <div class="save">1,425円お得（15%OFF）</div>
-      <div class="monthly-line">
-        2回（月額）の料金<br>
-        定価19,000円/2回 → <b>16,150円/2回</b>（2,850円お得・15%OFF）
+    <div class="plan-acc">
+      <button class="plan-acc-btn" id="btn-plan-light" onclick="togglePlan('plan-light')">
+        <span class="ttl">ライトプラン<span class="sub">50分整体 ・ 時短ケアに</span></span>
+        <span class="chevron">▼</span>
+      </button>
+      <div class="plan-acc-body" id="plan-light">
+        <div class="plan-acc-inner">
+          <div class="price-tag">本日ご契約価格</div>
+          <div class="list-price">定価 9,500円/1回</div>
+          <div class="main-price">8,075<span class="unit">円 / 1回</span></div>
+          <div class="save">1,425円お得（15%OFF）</div>
+          <div class="monthly-line">
+            2回（月額）の料金<br>
+            定価19,000円/2回 → <b>16,150円/2回</b>（2,850円お得・15%OFF）
+          </div>
+          <div class="qr-cta">＼こちらからお申し込み／</div>
+          <a href="https://web.online.airpayment.jp/payment?planId=PLIqwjPzmj8OYremiR" class="qr-box"><div id="qr-light"></div></a>
+          <div class="gift">🎁 特典つき</div>
+        </div>
       </div>
-      <a class="cta-btn" href="https://web.online.airpayment.jp/payment?planId=PLIqwjPzmj8OYremiR">＼こちらからお申し込み／</a>
-      <div class="gift">🎁 特典つき</div>
     </div>
 
     <!-- スタンダードプラン -->
-    <div class="popular-flag">⭐ 人気 No.1 ！！</div>
-    <div class="plan-card featured">
-      <div class="ribbon">人気</div>
-      <h3>スタンダードプラン</h3>
-      <div class="desc">80分整体（オイル併用も可）</div>
-      <div class="price-tag">本日ご契約価格（30%OFF）</div>
-      <div class="list-price">定価 15,200円/1回</div>
-      <div class="main-price">10,640<span class="unit">円 / 1回</span></div>
-      <div class="save">4,560円お得（30%OFF）</div>
-      <div class="monthly-line">
-        2回（月額）の料金<br>
-        定価30,400円/2回 → <b>21,280円/2回</b>（9,120円お得・30%OFF）
+    <div class="plan-acc featured">
+      <span class="ribbon-flag">⭐ 人気 No.1 ！！</span>
+      <button class="plan-acc-btn open" id="btn-plan-standard" onclick="togglePlan('plan-standard')">
+        <span class="ttl">スタンダードプラン<span class="sub">80分整体（オイル併用も可）</span></span>
+        <span class="chevron open">▼</span>
+      </button>
+      <div class="plan-acc-body open" id="plan-standard">
+        <div class="plan-acc-inner">
+          <div class="price-tag">本日ご契約価格（30%OFF）</div>
+          <div class="list-price">定価 15,200円/1回</div>
+          <div class="main-price">10,640<span class="unit">円 / 1回</span></div>
+          <div class="save">4,560円お得（30%OFF）</div>
+          <div class="monthly-line">
+            2回（月額）の料金<br>
+            定価30,400円/2回 → <b>21,280円/2回</b>（9,120円お得・30%OFF）
+          </div>
+          <div class="qr-cta">＼このプランで申し込む／</div>
+          <a href="https://web.online.airpayment.jp/payment?planId=PLRGRFJQRGoeosjVRq" class="qr-box"><div id="qr-standard"></div></a>
+          <div class="gift">🎁 特典つき</div>
+        </div>
       </div>
-      <a class="cta-btn" href="https://web.online.airpayment.jp/payment?planId=PLRGRFJQRGoeosjVRq">＼このプランで申し込む／</a>
-      <div class="gift">🎁 特典つき</div>
     </div>
 
     <!-- スペシャルプラン -->
-    <div class="plan-card">
-      <h3>スペシャルプラン</h3>
-      <div class="desc">110分整体 ・ 最大限の結果を</div>
-      <div class="price-tag">本日ご契約価格（30%OFF）</div>
-      <div class="list-price">定価 20,900円/1回</div>
-      <div class="main-price">14,630<span class="unit">円 / 1回</span></div>
-      <div class="save">6,270円お得（30%OFF）</div>
-      <div class="monthly-line">
-        2回（月額）の料金<br>
-        定価41,800円/2回 → <b>29,260円/2回</b>（12,540円お得・30%OFF）
+    <div class="plan-acc">
+      <button class="plan-acc-btn" id="btn-plan-special" onclick="togglePlan('plan-special')">
+        <span class="ttl">スペシャルプラン<span class="sub">110分整体 ・ 最大限の結果を</span></span>
+        <span class="chevron">▼</span>
+      </button>
+      <div class="plan-acc-body" id="plan-special">
+        <div class="plan-acc-inner">
+          <div class="price-tag">本日ご契約価格（30%OFF）</div>
+          <div class="list-price">定価 20,900円/1回</div>
+          <div class="main-price">14,630<span class="unit">円 / 1回</span></div>
+          <div class="save">6,270円お得（30%OFF）</div>
+          <div class="monthly-line">
+            2回（月額）の料金<br>
+            定価41,800円/2回 → <b>29,260円/2回</b>（12,540円お得・30%OFF）
+          </div>
+          <div class="qr-cta">＼こちらからお申し込み／</div>
+          <a href="https://web.online.airpayment.jp/payment?planId=PLNcl2m4uSENCQTv70" class="qr-box"><div id="qr-special"></div></a>
+          <div class="gift">🎁 特典つき</div>
+        </div>
       </div>
-      <a class="cta-btn" href="https://web.online.airpayment.jp/payment?planId=PLNcl2m4uSENCQTv70">＼こちらからお申し込み／</a>
-      <div class="gift">🎁 特典つき</div>
     </div>
 
     <div class="guarantee-note">
@@ -502,6 +535,35 @@
       if(size==='xlarge') document.body.classList.add('fs-xlarge');
     });
   });
+
+  const PLAN_LINKS = {
+    light: "https://web.online.airpayment.jp/payment?planId=PLIqwjPzmj8OYremiR",
+    standard: "https://web.online.airpayment.jp/payment?planId=PLRGRFJQRGoeosjVRq",
+    special: "https://web.online.airpayment.jp/payment?planId=PLNcl2m4uSENCQTv70"
+  };
+
+  window.addEventListener('load', ()=>{
+    new QRCode(document.getElementById('qr-light'), {text: PLAN_LINKS.light, width:120, height:120});
+    new QRCode(document.getElementById('qr-standard'), {text: PLAN_LINKS.standard, width:120, height:120});
+    new QRCode(document.getElementById('qr-special'), {text: PLAN_LINKS.special, width:120, height:120});
+  });
+
+  function togglePlan(id){
+    const body = document.getElementById(id);
+    const btn = document.getElementById('btn-' + id);
+    const isOpen = body.classList.contains('open');
+
+    document.querySelectorAll('.plan-acc-body.open').forEach(el=>el.classList.remove('open'));
+    document.querySelectorAll('.plan-acc-btn.open').forEach(el=>el.classList.remove('open'));
+    document.querySelectorAll('.plan-acc-btn .chevron.open').forEach(el=>el.classList.remove('open'));
+
+    if(!isOpen){
+      body.classList.add('open');
+      btn.classList.add('open');
+      btn.querySelector('.chevron').classList.add('open');
+      setTimeout(()=>btn.scrollIntoView({behavior:'smooth', block:'center'}), 150);
+    }
+  }
 </script>
 
 </body>
