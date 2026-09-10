@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>POWWOW そごう横浜店 - ご提案</title>
+<style>
+  :root{
+    --pink:#e893a8;
+    --pink-dark:#d46b85;
+    --pink-pale:#fdf1f4;
+    --cream:#fffaf7;
+    --text:#4a3b3f;
+    --text-light:#8a7579;
+    --gold:#c9a15a;
+    --line:#f0dde2;
+    --shadow: 0 4px 20px rgba(212,107,133,0.10);
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif;
+    background:var(--cream);
+    color:var(--text);
+    line-height:1.8;
+    -webkit-font-smoothing:antialiased;
+  }
+  img{max-width:100%;display:block;}
+  .wrap{max-width:480px;margin:0 auto;background:#fff;min-height:100vh;position:relative;}
+
+  /* Font size toggle */
+  .fontsize-bar{
+    display:flex;justify-content:center;gap:8px;
+    padding:10px 0;background:var(--pink-pale);
+    border-bottom:1px solid var(--line);
+    position:sticky;top:0;z-index:50;
+  }
+  .fontsize-bar button{
+    border:1px solid var(--pink);
+    background:#fff;color:var(--pink-dark);
+    border-radius:20px;padding:5px 16px;
+    font-size:12px;cursor:pointer;
+  }
+  .fontsize-bar button.active{background:var(--pink);color:#fff;}
+  body.fs-large{font-size:112%;}
+  body.fs-xlarge{font-size:126%;}
+
+  header.hero{
+    background:linear-gradient(160deg,var(--pink) 0%, var(--pink-dark) 100%);
+    color:#fff;text-align:center;
+    padding:40px 24px 32px;
+  }
+  header.hero .logo{
+    font-size:22px;letter-spacing:2px;font-weight:600;margin-bottom:4px;
+  }
+  header.hero .store{
+    font-size:13px;letter-spacing:1px;opacity:.9;margin-bottom:18px;
+  }
+  header.hero .catch{
+    font-size:14px;background:rgba(255,255,255,0.18);
+    display:inline-block;padding:6px 16px;border-radius:20px;
+  }
+
+  section{padding:32px 22px;}
+  .intro{
+    padding:28px 22px 8px;
+  }
+  .intro h1{
+    font-size:19px;line-height:1.7;margin:0 0 14px;color:var(--text);
+  }
+  .intro p{font-size:14px;color:var(--text-light);margin:0 0 6px;}
+  .warn{
+    margin:18px 22px 0;
+    background:#fff6f2;border:1px solid #f3d3c4;
+    border-radius:10px;padding:14px 16px;
+    font-size:13.5px;color:#9c5c3a;
+  }
+
+  .sec-title{
+    display:flex;align-items:baseline;gap:10px;
+    margin:0 0 6px;
+  }
+  .sec-title .num{
+    font-size:13px;color:var(--pink-dark);font-weight:700;letter-spacing:1px;
+  }
+  .sec-title h2{font-size:18px;margin:0;color:var(--text);}
+  .sec-lead{font-size:13.5px;color:var(--text-light);margin:0 0 18px;}
+
+  .cycle-img{
+    border-radius:14px;overflow:hidden;background:var(--pink-pale);
+    height:150px;display:flex;align-items:center;justify-content:center;
+    color:var(--text-light);font-size:12px;margin-bottom:20px;
+  }
+
+  .step-list{display:flex;flex-direction:column;gap:14px;}
+  .step-card{
+    border:1px solid var(--line);border-radius:14px;
+    padding:16px 18px;position:relative;background:#fff;
+  }
+  .step-card .when{font-size:12px;color:var(--pink-dark);font-weight:700;}
+  .step-card .step-label{font-size:11px;color:var(--text-light);float:right;}
+  .step-card h3{margin:6px 0 4px;font-size:16px;}
+  .step-card .freq{font-size:13px;color:var(--text-light);}
+
+  .point-box{
+    margin-top:22px;background:var(--pink-pale);
+    border-radius:14px;padding:16px 18px;
+  }
+  .point-box .tag{
+    font-size:12px;color:var(--pink-dark);font-weight:700;margin-bottom:8px;display:block;
+  }
+  .point-box .badge{
+    display:inline-block;background:var(--pink);color:#fff;
+    font-size:11px;border-radius:12px;padding:2px 10px;margin-bottom:8px;
+  }
+  .point-box p{font-size:13.5px;margin:0;}
+
+  .plan-lead{
+    text-align:center;margin-bottom:22px;
+  }
+  .plan-lead .off{
+    display:inline-block;background:var(--gold);color:#fff;
+    font-size:13px;border-radius:20px;padding:5px 18px;margin-bottom:8px;
+  }
+  .plan-lead h2{font-size:18px;margin:4px 0;}
+  .plan-lead p{font-size:13px;color:var(--text-light);}
+
+  .perk-box{
+    background:#fff8ef;border:1px solid #f1e0bf;
+    border-radius:14px;padding:16px 18px;margin-bottom:18px;
+  }
+  .perk-box .perk-title{font-size:13.5px;font-weight:700;color:#a97a2c;margin-bottom:10px;}
+  .perk-box ul{margin:0;padding-left:0;list-style:none;}
+  .perk-box li{font-size:13.5px;margin-bottom:6px;padding-left:22px;position:relative;}
+  .perk-box li:before{content:"✓";position:absolute;left:0;color:var(--pink-dark);font-weight:700;}
+  .perk-note{font-size:11.5px;color:var(--text-light);margin:10px 0 0;line-height:1.6;}
+
+  .plan-card{
+    border:2px solid var(--line);border-radius:16px;
+    padding:20px;margin-bottom:20px;position:relative;overflow:hidden;
+  }
+  .plan-card.featured{border-color:var(--pink);box-shadow:var(--shadow);}
+  .plan-card .ribbon{
+    position:absolute;top:14px;right:-32px;
+    background:var(--pink-dark);color:#fff;font-size:11px;
+    padding:4px 36px;transform:rotate(35deg);
+  }
+  .plan-card h3{font-size:17px;margin:0 0 2px;}
+  .plan-card .desc{font-size:12.5px;color:var(--text-light);margin-bottom:14px;}
+  .plan-card .price-tag{
+    font-size:11.5px;color:var(--pink-dark);background:var(--pink-pale);
+    display:inline-block;padding:2px 10px;border-radius:10px;margin-bottom:10px;
+  }
+  .plan-card .list-price{
+    font-size:12.5px;color:var(--text-light);text-decoration:line-through;
+  }
+  .plan-card .main-price{
+    font-size:34px;font-weight:700;color:var(--pink-dark);
+  }
+  .plan-card .main-price .unit{font-size:14px;font-weight:500;color:var(--text);}
+  .plan-card .save{
+    font-size:12.5px;color:#c0553a;margin-bottom:14px;
+  }
+  .plan-card .monthly-line{
+    font-size:12.5px;color:var(--text-light);
+    border-top:1px dashed var(--line);padding-top:12px;margin-bottom:16px;
+  }
+  .plan-card .monthly-line b{color:var(--text);font-weight:600;}
+  .cta-btn{
+    display:block;text-align:center;text-decoration:none;
+    background:var(--pink-dark);color:#fff;
+    padding:14px;border-radius:30px;font-size:14.5px;font-weight:700;
+    box-shadow:0 6px 16px rgba(212,107,133,0.3);
+  }
+  .cta-btn:active{transform:scale(0.98);}
+  .plan-card .gift{
+    font-size:12px;color:var(--gold);margin-top:10px;text-align:center;
+  }
+  .popular-flag{
+    text-align:center;font-size:12px;color:var(--pink-dark);font-weight:700;margin-bottom:-4px;
+  }
+
+  .guarantee-note{
+    text-align:center;margin:24px 0;font-size:13px;color:var(--text-light);
+  }
+  .guarantee-note .shield{font-size:28px;display:block;margin-bottom:10px;}
+  .trust-line{
+    text-align:center;font-size:12.5px;color:var(--text-light);
+    margin-top:18px;line-height:1.9;
+  }
+
+  .guarantee-card{
+    background:var(--pink-pale);border-radius:18px;padding:24px 20px;
+  }
+  .guarantee-card .g-head{text-align:center;margin-bottom:18px;}
+  .guarantee-card .g-head .shield{font-size:30px;}
+  .guarantee-card .g-head h3{font-size:16px;margin:8px 0 0;}
+  .guarantee-card p.lead{font-size:13.5px;text-align:center;margin-bottom:20px;}
+
+  .cond-list{display:flex;flex-direction:column;gap:12px;margin-bottom:22px;}
+  .cond{
+    background:#fff;border-radius:12px;padding:12px 14px;
+    display:flex;gap:12px;align-items:flex-start;
+  }
+  .cond .ic{font-size:20px;}
+  .cond .label{font-size:11.5px;color:var(--pink-dark);font-weight:700;}
+  .cond .body{font-size:13px;}
+
+  .flow{
+    display:flex;justify-content:space-between;text-align:center;margin-bottom:22px;
+  }
+  .flow .fstep{flex:1;font-size:11px;color:var(--text-light);position:relative;}
+  .flow .fstep b{display:block;font-size:12.5px;color:var(--text);margin-bottom:4px;}
+  .flow .fstep:not(:last-child):after{
+    content:"›";position:absolute;right:-6px;top:0;color:var(--pink);font-size:16px;
+  }
+
+  .fine-print{
+    background:#fff;border-radius:12px;padding:16px;font-size:11.5px;
+    color:var(--text-light);line-height:2;
+  }
+  .fine-print .ft-title{font-weight:700;color:var(--text);font-size:12.5px;margin-bottom:8px;}
+
+  .closing{
+    background:linear-gradient(160deg,var(--pink) 0%, var(--pink-dark) 100%);
+    color:#fff;padding:36px 22px;text-align:center;
+  }
+  .closing p{font-size:14px;margin:0 0 10px;}
+  .closing .final-msg{font-size:15px;font-weight:700;margin:18px 0 10px;}
+  .closing .em{font-weight:700;}
+
+  .final-cta{
+    padding:28px 22px 40px;text-align:center;
+  }
+  .final-cta .most-chosen{
+    font-size:13px;color:var(--pink-dark);margin-bottom:14px;
+  }
+  .final-cta .qr-note{font-size:12.5px;color:var(--text-light);}
+
+  .divider{
+    height:1px;background:var(--line);margin:0 22px;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="fontsize-bar">
+    <button data-size="normal" class="active">標準</button>
+    <button data-size="large">大</button>
+    <button data-size="xlarge">特大</button>
+  </div>
+
+  <header class="hero">
+    <div class="logo">POWWOW</div>
+    <div class="store">そごう横浜店</div>
+    <div class="catch">国内で唯一ウィメンズ整体が受けられるサロン</div>
+  </header>
+
+  <div class="intro">
+    <h1>1回目の施術の効果はいかがでしたか？<br>ここから3ヶ月間で根本的に体を変えていきます。</h1>
+    <p>これから、改善に向けての必要なケアと適切なペースをご説明いたします。</p>
+  </div>
+
+  <div class="warn">⚠ 何もしないと、この不調は年々強くなっていきます。</div>
+
+  <section>
+    <div class="sec-title"><span class="num">01</span><h2>施術サイクルとホルモンバランス</h2></div>
+    <p class="sec-lead">理想的な来店ペースと、女性ホルモンの波との関係を確認しましょう。</p>
+
+    <div class="cycle-img">施術サイクルとホルモンバランス（画像）</div>
+
+    <div class="step-list">
+      <div class="step-card">
+        <span class="step-label">Step 1</span>
+        <span class="when">1ヶ月目</span>
+        <h3>土台期</h3>
+        <div class="freq">初回〜4回目 / 週1回ペース</div>
+      </div>
+      <div class="step-card">
+        <span class="step-label">Step 2</span>
+        <span class="when">2〜3ヶ月目</span>
+        <h3>調整期</h3>
+        <div class="freq">5〜8回目 / 月2回ペース</div>
+      </div>
+      <div class="step-card">
+        <span class="step-label">Step 3</span>
+        <span class="when">4ヶ月目〜</span>
+        <h3>メンテナンス期</h3>
+        <div class="freq">9回目以降 / 月1回ペース</div>
+      </div>
+    </div>
+
+    <div class="point-box">
+      <span class="tag">土台期 Point</span>
+      <span class="badge">🌟 おすすめ</span>
+      <p>🌸 月経前は女性ホルモンの影響で身体がむくみやすいため、オイルの追加がオススメです。</p>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <section>
+    <div class="sec-title"><span class="num">02</span><h2>料金プランのご案内</h2></div>
+
+    <div class="plan-lead">
+      <span class="off">♾️ 最大 30% OFF</span>
+      <h2>月額定額プラン</h2>
+      <p>本日ご契約の方限定 / 3つのコースから、お客様に合ったペースをお選びいただけます</p>
+    </div>
+
+    <div class="perk-box">
+      <div class="perk-title">🎉 本日ご契約の方限定特典</div>
+      <ul>
+        <li>施術料金 最大30%OFF</li>
+        <li>加入手数料 0円（通常3,000円）</li>
+        <li>業界初！全額返金保証つき</li>
+      </ul>
+      <p class="perk-note">
+        ※以下の価格は、この特典をすべて反映した「本日ご契約時の価格」です。<br>
+        ※価格は月2回ペースでご来店いただく場合の月額です。施術時間にはお着替え時間を含みます。動きやすい服装であれば不要です。<br>
+        ※オイルと組み合わせの場合は施術時間が10分短くなります。
+      </p>
+    </div>
+
+    <p style="text-align:center;font-size:12.5px;color:var(--text-light);margin-bottom:18px;">
+      プランをタップして詳細をご確認ください（月2回ペース）
+    </p>
+
+    <!-- ライトプラン -->
+    <div class="plan-card">
+      <h3>ライトプラン</h3>
+      <div class="desc">50分整体 ・ 時短ケアに</div>
+      <div class="price-tag">本日ご契約価格</div>
+      <div class="list-price">定価 9,500円/1回</div>
+      <div class="main-price">8,075<span class="unit">円 / 1回</span></div>
+      <div class="save">1,425円お得（15%OFF）</div>
+      <div class="monthly-line">
+        2回（月額）の料金<br>
+        定価19,000円/2回 → <b>16,150円/2回</b>（2,850円お得・15%OFF）
+      </div>
+      <a class="cta-btn" href="https://web.online.airpayment.jp/payment?planId=PLIqwjPzmj8OYremiR">＼こちらからお申し込み／</a>
+      <div class="gift">🎁 特典つき</div>
+    </div>
+
+    <!-- スタンダードプラン -->
+    <div class="popular-flag">⭐ 人気 No.1 ！！</div>
+    <div class="plan-card featured">
+      <div class="ribbon">人気</div>
+      <h3>スタンダードプラン</h3>
+      <div class="desc">80分整体（オイル併用も可）</div>
+      <div class="price-tag">本日ご契約価格（30%OFF）</div>
+      <div class="list-price">定価 15,200円/1回</div>
+      <div class="main-price">10,640<span class="unit">円 / 1回</span></div>
+      <div class="save">4,560円お得（30%OFF）</div>
+      <div class="monthly-line">
+        2回（月額）の料金<br>
+        定価30,400円/2回 → <b>21,280円/2回</b>（9,120円お得・30%OFF）
+      </div>
+      <a class="cta-btn" href="https://web.online.airpayment.jp/payment?planId=PLRGRFJQRGoeosjVRq">＼このプランで申し込む／</a>
+      <div class="gift">🎁 特典つき</div>
+    </div>
+
+    <!-- スペシャルプラン -->
+    <div class="plan-card">
+      <h3>スペシャルプラン</h3>
+      <div class="desc">110分整体 ・ 最大限の結果を</div>
+      <div class="price-tag">本日ご契約価格（30%OFF）</div>
+      <div class="list-price">定価 20,900円/1回</div>
+      <div class="main-price">14,630<span class="unit">円 / 1回</span></div>
+      <div class="save">6,270円お得（30%OFF）</div>
+      <div class="monthly-line">
+        2回（月額）の料金<br>
+        定価41,800円/2回 → <b>29,260円/2回</b>（12,540円お得・30%OFF）
+      </div>
+      <a class="cta-btn" href="https://web.online.airpayment.jp/payment?planId=PLNcl2m4uSENCQTv70">＼こちらからお申し込み／</a>
+      <div class="gift">🎁 特典つき</div>
+    </div>
+
+    <div class="guarantee-note">
+      <span class="shield">🛡️</span>
+      「不安だな、大丈夫かな、損しないかな・・・」<br>そんな方のために、業界初の<br>
+      <b>月額定額プラン限定 全額返金保証</b><br>をお付けしています。詳細は次のセクションをご覧ください。
+    </div>
+
+    <p class="trust-line">
+      私たちパウワウは2004年の創業以来22年の実績があり、<br>
+      数十万人の女性の不調をケアしてきたからこそご用意できるプランです。
+    </p>
+  </section>
+
+  <div class="divider"></div>
+
+  <section>
+    <div class="sec-title"><span class="num">03</span><h2>安心の全額返金保証</h2></div>
+
+    <div class="guarantee-card">
+      <div class="g-head">
+        <span class="shield">🛡️</span>
+        <h3>月額定額プラン限定<br>全額返金保証</h3>
+      </div>
+      <p class="lead">
+        ご案内した来店ペースで<b>6ヶ月間</b>しっかり通っていただいたのに、<br>
+        ご満足いただけなかった場合は、<b>お支払いいただいた6ヶ月分の月額料金を全額返金</b>いたします。
+      </p>
+
+      <div class="cond-list">
+        <div class="cond">
+          <div class="ic">📅</div>
+          <div>
+            <div class="label">条件1</div>
+            <div class="body">加入日から6ヶ月間月額定額プランを継続してご利用</div>
+          </div>
+        </div>
+        <div class="cond">
+          <div class="ic">🚶‍♀️</div>
+          <div>
+            <div class="label">条件2</div>
+            <div class="body">ご案内した推奨来店ペースで通っていただく</div>
+          </div>
+        </div>
+        <div class="cond">
+          <div class="ic">📝</div>
+          <div>
+            <div class="label">条件3</div>
+            <div class="body">所定のアンケートにご記入・ご提出</div>
+          </div>
+        </div>
+      </div>
+
+      <p style="font-size:12.5px;font-weight:700;text-align:center;margin-bottom:10px;">お申し込みの流れ</p>
+      <div class="flow">
+        <div class="fstep"><b>6ヶ月間</b>継続来店</div>
+        <div class="fstep"><b>6ヶ月経過後</b>14日以内に申請</div>
+        <div class="fstep"><b>アンケート</b>ご提出</div>
+        <div class="fstep"><b>審査の上</b>全額返金</div>
+      </div>
+    </div>
+
+    <div style="height:18px;"></div>
+
+    <div class="fine-print">
+      <div class="ft-title">保証適用にあたっての注意事項</div>
+      ・本保証は月額定額プランにご加入の方が対象です。<br>
+      ・返金対象となるのは、最初にご契約いただいた6ヶ月間にお支払いいただいた月額定額プラン利用料金です。契約更新後の期間や再契約には適用されません。<br>
+      ・申請は加入日から6ヶ月経過後14日以内に、所定のアンケートへのご記入・ご提出により承ります。期間経過後のお申し出はお受けできませんので、あらかじめご了承ください。<br>
+      ・ご案内した推奨来店頻度に著しく満たない場合や、当日・無断キャンセルが複数回ある場合など、来店実績によっては保証の対象外となることがあります。<br>
+      ・返金保証の適用可否は、ご提出いただいたアンケート内容と当サロンの来店・施術記録を照合のうえ判断いたします。<br>
+      ・本保証は施術による医学的な効果を保証するものではありません。<br>
+      ・返金保証の適用を受けて解約された場合、返金日から6ヶ月間は同種の月額定額プランサービスに再度お申し込みいただくことはできません。<br>
+      ・詳細は「月額定額プラン会員契約書」第9条（全額返金保証）をご確認ください。
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <section style="padding-top:26px;">
+    <p style="font-size:13.5px;">
+      施術前にお伝えした「仙骨の歪み度」を覚えていらっしゃいますか？ここで何もしなければ、少しずつ元に戻ってしまいます。
+    </p>
+    <p style="font-size:13.5px;">
+      今日感じていただいた身体の軽さを、このまま大切にしていってほしいと思っています。
+    </p>
+  </section>
+
+  <div class="closing">
+    <p class="final-msg">最後に、これだけはお伝えさせてください</p>
+    <p>「本当に続けられるかな、合わなかったらどうしよう…」<br>そう思われる方も、きっと多いと思います。</p>
+    <p>だからこそ、月額定額プランには<span class="em">全額返金保証</span>をお付けしました。</p>
+    <p>6ヶ月間しっかり通っていただいても、もしご満足いただけなければ、<br>お支払いいただいた月額料金は<span class="em">全額</span>お返しします。</p>
+    <p>ですから、安心して一歩を踏み出していただければと思います。</p>
+  </div>
+
+  <div class="final-cta">
+    <p class="most-chosen">当サロンではスタンダードプランが最も選ばれています。</p>
+    <p class="qr-note">＼上のQRコードから、そのままお申し込みいただけます／</p>
+  </div>
+
+</div>
+
+<script>
+  const buttons = document.querySelectorAll('.fontsize-bar button');
+  buttons.forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      buttons.forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      document.body.classList.remove('fs-large','fs-xlarge');
+      const size = btn.dataset.size;
+      if(size==='large') document.body.classList.add('fs-large');
+      if(size==='xlarge') document.body.classList.add('fs-xlarge');
+    });
+  });
+</script>
+
+</body>
+</html>
