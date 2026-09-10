@@ -93,19 +93,34 @@
     color:var(--text-light);font-size:12px;margin-bottom:20px;
   }
 
-  .step-list{display:flex;flex-direction:column;gap:14px;}
+  .step-list{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
   .step-card{
-    border:1px solid var(--line);border-radius:14px;
-    padding:16px 18px;position:relative;background:#fff;
+    appearance:none;-webkit-appearance:none;width:100%;font:inherit;color:inherit;
+    border:1px solid var(--line);border-left:3px solid transparent;border-radius:12px;
+    padding:10px 8px;position:relative;background:#fff;text-align:left;cursor:pointer;
+    transition:all .2s ease;
   }
-  .step-card .when{font-size:12px;color:var(--pink-dark);font-weight:700;}
-  .step-card .step-label{font-size:11px;color:var(--text-light);float:right;}
-  .step-card h3{margin:6px 0 4px;font-size:16px;}
-  .step-card .freq{font-size:13px;color:var(--text-light);}
-  .step-card .desc-text{font-size:12.5px;color:var(--text);margin-top:10px;line-height:1.7;}
-  .step-card .point-text{font-size:12px;color:var(--text-light);margin-top:10px;padding-top:10px;border-top:1px dashed var(--line);line-height:1.7;}
-  .step-card .point-text b{color:var(--pink-dark);}
-  .step-card .plan-text{font-size:12px;color:var(--pink-dark);font-weight:700;margin-top:10px;padding-top:10px;border-top:1px dashed var(--line);}
+  .step-card:hover{background:var(--pink-pale);}
+  .step-card.active{border-left:4px solid var(--pink);box-shadow:var(--shadow);}
+  .step-card .row{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;}
+  .step-card .when{
+    font-size:10px;color:var(--pink-dark);font-weight:700;
+    background:var(--pink-pale);border-radius:8px;padding:1px 6px;
+  }
+  .step-card.active .when{background:var(--pink);color:#fff;}
+  .step-card .step-label{font-size:10px;color:var(--text-light);font-weight:700;}
+  .step-card h3{margin:2px 0 2px;font-size:13.5px;}
+  .step-card .freq{font-size:10.5px;color:var(--text-light);line-height:1.4;}
+
+  .phase-detail{
+    margin-top:16px;background:var(--pink-pale);border-left:4px solid var(--pink);
+    border-radius:12px;padding:16px 18px;
+  }
+  .phase-detail h4{margin:0 0 8px;font-size:15px;color:var(--text);}
+  .phase-detail .desc-text{font-size:12.5px;color:var(--text);line-height:1.7;margin:0;}
+  .phase-detail .point-text{font-size:12px;color:var(--text-light);margin-top:10px;padding-top:10px;border-top:1px dashed var(--pink);line-height:1.7;}
+  .phase-detail .point-text b{color:var(--pink-dark);}
+  .phase-detail .plan-text{font-size:12px;color:var(--pink-dark);font-weight:700;margin-top:10px;padding-top:10px;border-top:1px dashed var(--pink);}
 
   .point-box{
     margin-top:22px;background:var(--pink-pale);
@@ -288,32 +303,28 @@
     <div class="cycle-img">施術サイクルとホルモンバランス（画像）</div>
 
     <div class="step-list">
-      <div class="step-card">
-        <span class="step-label">Step 1</span>
-        <span class="when">1ヶ月目</span>
+      <button class="step-card active" id="btn-phase-0" onclick="updatePhase(0)">
+        <div class="row"><span class="when">1ヶ月目</span><span class="step-label">Step 1</span></div>
         <h3>土台期</h3>
-        <div class="freq">初回〜4回目 / 週1回ペース</div>
-        <p class="desc-text">まずは凝りをほぐして土台の仙骨を整える時期です。筋肉の硬さと骨格の歪みをしっかりケアし、正しいバランスの基礎を作ります。間隔を空けずに施術することが理想的です。</p>
-        <p class="point-text"><b>Point</b>：初回〜4回目：可動域・歪みをチェック。仙骨周りを集中的にケアし、自律神経やホルモンバランスを整える土台を作ります。</p>
-      </div>
-      <div class="step-card">
-        <span class="step-label">Step 2</span>
-        <span class="when">2〜3ヶ月目</span>
+        <div class="freq">初回〜4回目<br>週1回ペース</div>
+      </button>
+      <button class="step-card" id="btn-phase-1" onclick="updatePhase(1)">
+        <div class="row"><span class="when">2〜3ヶ月目</span><span class="step-label">Step 2</span></div>
         <h3>調整期</h3>
-        <div class="freq">5〜8回目 / 月2回ペース</div>
-        <p class="desc-text">整えた土台を調節して定着させる時期です。筋肉がほぐれやすくなっているため、悪い姿勢のクセを抜き、良い状態を体に覚え込ませていきます。</p>
-        <p class="point-text"><b>Point</b>：5〜8回目：ほぐれが良くなってきたタイミング。「猫背矯正」などを組み合わせ、整った状態を「定着」させていきましょう。</p>
-        <p class="plan-text">🌟 整った状態を定着させるこの時期は「スタンダードプラン」がおすすめです。</p>
-      </div>
-      <div class="step-card">
-        <span class="step-label">Step 3</span>
-        <span class="when">4ヶ月目〜</span>
+        <div class="freq">5〜8回目<br>月2回ペース</div>
+      </button>
+      <button class="step-card" id="btn-phase-2" onclick="updatePhase(2)">
+        <div class="row"><span class="when">4ヶ月目〜</span><span class="step-label">Step 3</span></div>
         <h3>メンテナンス期</h3>
-        <div class="freq">9回目以降 / 月1回ペース</div>
-        <p class="desc-text">整えて定着した後に定期的にメンテナンスをする時期です。良い状態を維持し、日々の疲れをリセット。不調が出にくい身体をキープします。</p>
-        <p class="point-text"><b>Point</b>：9回目以降：月に1回程度のペースで、その時の身体の状態に合わせたケアを継続しましょう。</p>
-        <p class="plan-text">🌟 状態を維持するこの時期は「スペシャルプラン」がおすすめです。</p>
-      </div>
+        <div class="freq">9回目以降<br>月1回ペース</div>
+      </button>
+    </div>
+
+    <div class="phase-detail">
+      <h4 id="detail-title">土台期</h4>
+      <p class="desc-text" id="detail-desc"></p>
+      <p class="point-text" id="detail-point-wrap"><b>Point</b>：<span id="detail-point"></span></p>
+      <p class="plan-text" id="detail-plan" style="display:none;"></p>
     </div>
 
     <div class="point-box">
@@ -535,6 +546,24 @@
       if(size==='xlarge') document.body.classList.add('fs-xlarge');
     });
   });
+
+  const phaseDetails = [
+    { title: "土台期", desc: "まずは凝りをほぐして土台の仙骨を整える時期です。筋肉の硬さと骨格の歪みをしっかりケアし、正しいバランスの基礎を作ります。間隔を空けずに施術することが理想的です。", point: "初回〜4回目：可動域・歪みをチェック。仙骨周りを集中的にケアし、自律神経やホルモンバランスを整える土台を作ります。", plan: "" },
+    { title: "調整期", desc: "整えた土台を調節して定着させる時期です。筋肉がほぐれやすくなっているため、悪い姿勢のクセを抜き、良い状態を体に覚え込ませていきます。", point: "5〜8回目：ほぐれが良くなってきたタイミング。「猫背矯正」などを組み合わせ、整った状態を「定着」させていきましょう。", plan: "🌟 整った状態を定着させるこの時期は「スタンダードプラン」がおすすめです。" },
+    { title: "メンテナンス期", desc: "整えて定着した後に定期的にメンテナンスをする時期です。良い状態を維持し、日々の疲れをリセット。不調が出にくい身体をキープします。", point: "9回目以降：月に1回程度のペースで、その時の身体の状態に合わせたケアを継続しましょう。", plan: "🌟 状態を維持するこの時期は「スペシャルプラン」がおすすめです。" }
+  ];
+
+  function updatePhase(index){
+    document.querySelectorAll('.step-card').forEach((btn, i)=>btn.classList.toggle('active', i === index));
+    const d = phaseDetails[index];
+    document.getElementById('detail-title').textContent = d.title;
+    document.getElementById('detail-desc').textContent = d.desc;
+    document.getElementById('detail-point').textContent = d.point;
+    const planEl = document.getElementById('detail-plan');
+    planEl.textContent = d.plan;
+    planEl.style.display = d.plan ? '' : 'none';
+  }
+  updatePhase(0);
 
   const PLAN_LINKS = {
     light: "https://web.online.airpayment.jp/payment?planId=PLIqwjPzmj8OYremiR",
